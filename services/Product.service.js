@@ -1,5 +1,5 @@
 import {Router} from "express";
-import {deleteProduct, getPage, upsertProduct} from "../repositories/Product.model";
+import {deleteProduct, getPage, upsertProduct, findById} from "../repositories/Product.model";
 const router = Router();
 
 /**
@@ -69,4 +69,26 @@ router.delete('/delete/:id', (req, res) => {
   })
 })
 
+router.get('/detail/:id', (req, res) => {
+  const {id} = req.params;
+  if (!id) {
+    res.send({
+      status: false,
+      message: "Bạn chưa điền vào ID để xóa",
+    });
+    return;
+  }
+  findById(id).then(data => {
+    res.send({
+      status: true,
+      data,
+    })
+  }).catch((ex) => {
+    console.log("VIEW PRODUCT: ", ex);
+    res.send({
+      status: true,
+      message: "Lỗi khi lấy dữ liệu của sản phẩm",
+    });
+  })
+})
 export default router;

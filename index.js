@@ -3,7 +3,7 @@ import express from "express";
 // Thêm code:
 import cors from "cors";
 const bodyParser = require('body-parser');
-import { ProductService } from "./services"
+import { ProductService } from "./services";
 
 const APP = express();
 APP.use(cors()); // Để gọi từ POSTMAN đc
